@@ -1,0 +1,31 @@
+AIRLINE RESERVATION SYSTEM
+	Arjun, sai ram, Pooja, Suma
+---------------------------------------------------------------------------------
+Airline Reservation System aims to automate the flight ticketing/seat booking
+and confirmation system of an Airline company. The software is providing options for
+viewing different flights available at different timing for a specific day. That provides
+customers within the facility with the ability to book tickets smoothly. The customers can
+modify and are able to cancel the ticket for any reason. That prepares within a role and
+policies. The software should provide an option for checking the availability of the tickets.
+That is important for the customers to get messages if the ticket is unavailable. That will be
+displayed to customers. The customers should be noted when the change has been made or
+any further changes. He or she can book accommodation if required.
+
+Note:
+Use of C language concepts such as pointers, dynamic array using DMA(no-memory leak), advanced pointers such as double pointer, function pointer, static library, macro constant, macro function, macro oprators, conditional preprocessor, binary file streams, linked list, mutli threading (threads, RACE FIX, MUTEX, COND VAR). And use effectively development tools such as makefile, gcc, gdb, valgrind, gprof, splint, UML tool such as draw.io, and git/github.
+
+-------------------------------Points discussed----------------------------------------
+1.Users will be:
+ 1.1 Admin.
+ 1.2 customer
+ 
+Responsibilities - 
+
+Admin - admin login,flight management(adding available flight details,Displaying,updating flight status (available/unavailable),updating ticket status (available/unavailable),approve tickets,History of bookings) ,accomodation availibility(Based on location - name, no of rooms ,no of accomadated room, price for room)
+
+user - book ticket, select accomodation,cancel booking, search based on location,date and time
+
+UI/
+
+we can take lunch break sir
+
