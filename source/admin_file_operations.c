@@ -61,3 +61,25 @@ int flight_bdb_count()
 	countObjects = countChars / (int)sizeof(flight);
 	return countObjects;
 }
+void flight_bdb_readById(flight* flightAddr, int flightIdAddr)
+{
+    int i=0;
+    flight flight;
+    
+    char fileName[45];
+    strcpy(fileName,getFilePath(FLIGHT_DB_PATH));
+
+    FILE* in = fopen(fileName,"rb");
+    if(in == NULL){
+        printf("FILE ERROR.\n");
+        return;
+    }
+    while(fread(&flight,1,sizeof(flight),in)){
+        if(flight.flightID == flightIdAddr){
+        	(*flightAddr) = flight;
+        	break;
+        }
+        i++;
+    }
+    fclose(in);
+}
