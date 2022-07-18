@@ -9,11 +9,9 @@
 
 void createFlight()
 {
-    int count = flight_bdb_count();
-    count+=1;
+    // flightID to be an increment of total no.of flights exist.
 
     flight flightObject = {};
-    //flightObject.flightID = count;
     printf("Enter source : ");
     scanf("%s", flightObject.source);
     printf("\n");
@@ -49,14 +47,18 @@ void createFlight()
            &flightObject.arrival_time.minute);
     printf("\n");
     printf("Enter ticket fare : ");
-    scanf("%lf", flightObject.number_of_seats);
-    add_Flight_intoFile(flightObject);
+    scanf("%lf", flightObject.ticket_price);
 
     //create file operation call comes here//
 }
 void updateFlight(){
 
- flight flightObject = {};
+    flight flightObject = {};
+    int id;
+    printf("Enter flight id to update:");
+    scanf("%d", &id);
+    //scheme_bdb_readById(&schemes, id);
+
 
     printf("Enter new source : ");
     scanf("%s", flightObject.source);
@@ -65,7 +67,7 @@ void updateFlight(){
     scanf("%s", flightObject.destination);
     printf("\n");
     char dateOfJourney[20];
-    printf("Enter updated date of journey in dd-MM-yyyy format : ");
+    printf("Enter new date of journey in dd-MM-yyyy format : ");
     scanf("%s", dateOfJourney);
     sscanf(dateOfJourney, "%02d-%02d-%04d",
            &flightObject.DOJ.day,
@@ -92,13 +94,14 @@ void updateFlight(){
            &flightObject.arrival_time.hour,
            &flightObject.arrival_time.minute);
     printf("\n");
-    printf("Enter new ticket fare : ");
-    scanf("%lf", flightObject.number_of_seats);
-    //add_Flight_intoFile(flightObject);
+    printf("Enter updated ticket fare : ");
+    scanf("%lf", flightObject.ticket_price);
 
 
-    
     //update file operation call comes here//
+}
+void displayAllFlights(){
+    
 }
 
 int main()

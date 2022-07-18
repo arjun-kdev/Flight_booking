@@ -18,6 +18,13 @@ typedef struct _DOJ_t
 
 }DOJ_t;
 
+
+typedef struct Time_
+{
+	int hour;	
+	int minute;
+}Time;
+
 struct passenger_
 {
 	char passengerName[128];
