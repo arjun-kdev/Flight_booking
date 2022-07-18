@@ -57,7 +57,7 @@ void updateFlight(){
     int id;
     printf("Enter flight id to update:");
     scanf("%d", &id);
-    //scheme_bdb_readById(&schemes, id);
+    
 
 
     printf("Enter new source : ");
@@ -101,7 +101,7 @@ void updateFlight(){
     //update file operation call comes here//
 }
 void displayAllFlights(){
-    
+
 }
 
 int main()

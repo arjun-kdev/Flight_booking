@@ -10,10 +10,10 @@
 void createFlight()
 {
     int count = flight_bdb_count();
-    count+=1;
+    count += 1;
 
     flight flightObject = {};
-    //flightObject.flightID = count;
+    // flightObject.flightID = count;
     printf("Enter source : ");
     scanf("%s", flightObject.source);
     printf("\n");
@@ -52,12 +52,17 @@ void createFlight()
     scanf("%lf", flightObject.number_of_seats);
     add_Flight_intoFile(flightObject);
 
-    //create file operation call comes here//
+    // create file operation call comes here//
 }
-void updateFlight(){
+void updateFlight()
+{
 
- flight flightObject = {};
+    flight flightObject = {};
+    int id;
+    printf("Enter flight id to update:");
+    scanf("%d", &id);
 
+    flight_bdb_readById(&flightObject, id);
     printf("Enter new source : ");
     scanf("%s", flightObject.source);
     printf("\n");
@@ -94,11 +99,9 @@ void updateFlight(){
     printf("\n");
     printf("Enter new ticket fare : ");
     scanf("%lf", flightObject.number_of_seats);
-    //add_Flight_intoFile(flightObject);
+    // add_Flight_intoFile(flightObject);
 
-
-    
-    //update file operation call comes here//
+    // update file operation call comes here//
 }
 
 int main()
