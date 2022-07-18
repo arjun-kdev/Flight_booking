@@ -28,4 +28,13 @@ user - book ticket, select accomodation,cancel booking, search based on location
 UI/
 
 
+18/07/2022
+
+Start with CRUD operations :
+
+Create - 
+Read
+Update
+Delete
+
 

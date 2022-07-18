@@ -1,12 +1,14 @@
 #pragma once
 
-struct admin_
+/*struct admin_
 {
-int adminId;
-char AdminName[120];
+char adminUserId[120];
+char AdminPassword[120];
 int loginStatus;
 }__attribute__((__packed__)); 
+
 typedef struct admin_ admin;
+*/
 
 typedef struct _DOJ_t
 {
