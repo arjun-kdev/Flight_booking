@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include"ui_passenger.h"
-#include "db.h"
+#include "ui_admin_operations.c"
 #include"struct_base.h"
 
 #include"struct_ticket_flight.h"
