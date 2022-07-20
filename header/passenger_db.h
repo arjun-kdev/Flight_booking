@@ -41,3 +41,7 @@ typedef struct passenger_ passenger;
 
 
 
+void add_passenger_intoFile(passenger *passengerAddr);
+void passenger_bdb_readall(passenger *passengerList,int *passengerCount);
+int passenger_bdb_count();
+void passenger_bdb_readById(passenger* passengerAddr, int passengerIdAddr);

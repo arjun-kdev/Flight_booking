@@ -9,11 +9,11 @@
 
 void createFlight()
 {
-	int count = flight_bdb_count();
-	count += 1;
 
 	flight flightObject = {};
-	// flightObject.flightID = count;
+	printf("Enter flight ID : ");
+	scanf("%s", flightObject.flightID);
+	flightObject.flightID = count;
 	printf("Enter source : ");
 	scanf("%s", flightObject.source);
 	printf("\n");
@@ -58,9 +58,9 @@ void updateFlight()
 {
 
 	flight flightObject = {};
-	int id;
+	char id[32];
 	printf("Enter flight id to update:");
-	scanf("%d", &id);
+	scanf("%s", id);
 
 	flight_bdb_readById(&flightObject, id);
 	printf("Enter new source : ");
@@ -108,7 +108,7 @@ void ShowAllflights()
 
 	flight *flightAddr = NULL;
 	int noOfflightObject = 0;
-	noOfflightObject = scheme_bdb_count();
+	noOfflightObject = flight_bdb_count();
 	flightAddr = (flight *)malloc(10 * sizeof(flight));
 
 	flight_bdb_readall(flightAddr, &noOfflightObject);
@@ -158,7 +158,7 @@ void displayFlightObject(flight flightObject, int Index)
 void approveTicket()
 {
 	char ch;
-	printf("\n\tSelect A :  Approve Ticket \n\tSelect C :  Reject Ticket ");
+	printf("\n\tSelect A :  Approve Ticket \n\tSelect R :  Reject Ticket ");
 	scanf(" %c", &ch);
 	if ('a' == ch || 'A' == ch)
 	{
@@ -173,14 +173,15 @@ void approveTicket()
 		printf("Enter valid option..!!");
 	}
 }
-void verifyLogin(){
-
-}
-void viewAllTicketDetails(){
+/*void verifyLogin()
+{
+}*/
+void viewAllTicketDetails()
+{
 
 	ticket *ticketAddr = NULL;
 	int noOfTicketsObject = 0;
-	noOfTicketsObject = scheme_bdb_count();
+	noOfTicketsObject = ticket_bdb_count();
 	ticketAddr = (ticket *)malloc(10 * sizeof(ticket));
 
 	ticket_bdb_readall(ticketAddr, &noOfTicketsObject);
@@ -211,41 +212,134 @@ void displayTicketObject(ticket ticketObject, int Index)
 	printf("\tUser Id :%d", ticketObject.userID);
 }
 
-
-
-void viewAllTicketByPassenger(){
+void viewAllTicketByPassenger()
+{
 
 	ticket *ticketAddr = NULL;
-	int noOfTicketsObject = 0;
-	noOfTicketsObject = scheme_bdb_count();
+	int noOfTicketsObjectByPassenger = 0;
+	noOfTicketsObjectByPassenger = ticket_bdb_count();
 	ticketAddr = (ticket *)malloc(10 * sizeof(ticket));
 	getIdOfloggedUser();
-	ticket_bdb_readAllTicketsFromUser(ticketAddr, &noOfTicketsObject);
-	displayAllTicketObjectsFromUser(ticketAddr, noOfTicketsObject);
+	ticket_bdb_readAllTicketsFromUser(ticketAddr, &noOfTicketsObjectByPassenger);
+	displayAllTicketObjectsFromUser(ticketAddr, noOfTicketsObjectByPassenger);
 	free(ticketAddr);
 	ticketAddr = NULL;
 }
-void getIdOfloggedUser(){
+void getIdOfloggedUser()
+{
+}
+
+void ticket_bdb_readAllTicketsFromUser()
+{
+}
+
+void displayAllTicketObjectsFromUser()
+{
+}
+void viewAccomodationDetails()
+{
+}
+void displayAllFlightsFromSource()
+{
+	flight *flightAddr = NULL;
+	int noOfflightObjectFromSource = 0;
+	noOfflightObjectFromSource = flight_bdb_count_from_source();
+	flightAddr = (flight *)malloc(10 * sizeof(flight));
+
+	flight_bdb_readall_from_source(flightAddr, &noOfflightObjectFromSource);
+	displayAllFlightObjectsFromSource(flightAddr, noOfflightObjectFromSource);
+	free(flightAddr);
+	flightAddr = NULL;
+}
+void displayAllFlightObjectsFromSource(flight *flightAddr, int flightObjectCount){
+	for (int i = 0; i < flightObjectCount; i++)
+	{
+		displayFlightObjectFromSource(flightAddr[i], i);
+	}
+}
+void displayFlightObjectFromSource(flight flightObject, int Index){
+printf("\n %d)\n", Index + 1);
+	printf("\tFlight ID :%d", flightObject.flightID);
+	printf("\n");
+	printf("\tSource :%s", flightObject.source);
+	printf("\n");
+	printf("\tDestination :%s", flightObject.destination);
+	printf("\n");
+	printf("\tFly Date : ");
+	printf("%02d-%02d-%04d",
+		   flightObject.DOJ.day,
+		   flightObject.DOJ.month,
+		   flightObject.DOJ.year);
+	printf("\n");
+	printf("\tTotal no.of seats :%d", flightObject.number_of_seats);
+	printf("\n");
+	printf("\tAvailable Seats :%d", flightObject.seats_available);
+	printf("\n");
+	printf("\tArrival Time : ");
+	printf("%02d:%02d",
+		   flightObject.arrival_time.hour,
+		   flightObject.arrival_time.minute);
+	printf("\n");
+	printf("\tDeparture Time : ");
+	printf("%02d:%02d",
+		   flightObject.departure_time.hour,
+		   flightObject.departure_time.minute);
+	printf("\n");
+	printf("\tTicket price :%d", flightObject.ticket_price);
 
 }
 
-void viewAllTicketDetails(){
+void displayAllFlightsToDestination()
+{
+	flight *flightAddr = NULL;
+	int noOfflightObjectToDestination = 0;
+	noOfflightObjectToDestination = flight_bdb_count_to_destination();
+	flightAddr = (flight *)malloc(10 * sizeof(flight));
 
+	flight_bdb_readall_to_destination(flightAddr, &noOfflightObjectToDestination);
+	displayAllFlightObjectsToDestination(flightAddr, noOfflightObjectToDestination);
+	free(flightAddr);
+	flightAddr = NULL;
 }
 
 
-void viewAllTicketDetailsFromSource(){
+void displayAllFlightObjectsToDestination(flight *flightAddr, int flightObjectCount){
+	for (int i = 0; i < flightObjectCount; i++)
+	{
+		displayFlightObjectToDestination(flightAddr[i], i);
+	}
+}
+void displayFlightObjectToDestination(flight flightObject, int Index){
+printf("\n %d)\n", Index + 1);
+	printf("\tFlight ID :%d", flightObject.flightID);
+	printf("\n");
+	printf("\tSource :%s", flightObject.source);
+	printf("\n");
+	printf("\tDestination :%s", flightObject.destination);
+	printf("\n");
+	printf("\tFly Date : ");
+	printf("%02d-%02d-%04d",
+		   flightObject.DOJ.day,
+		   flightObject.DOJ.month,
+		   flightObject.DOJ.year);
+	printf("\n");
+	printf("\tTotal no.of seats :%d", flightObject.number_of_seats);
+	printf("\n");
+	printf("\tAvailable Seats :%d", flightObject.seats_available);
+	printf("\n");
+	printf("\tArrival Time : ");
+	printf("%02d:%02d",
+		   flightObject.arrival_time.hour,
+		   flightObject.arrival_time.minute);
+	printf("\n");
+	printf("\tDeparture Time : ");
+	printf("%02d:%02d",
+		   flightObject.departure_time.hour,
+		   flightObject.departure_time.minute);
+	printf("\n");
+	printf("\tTicket price :%d", flightObject.ticket_price);
 
 }
-
-
-void viewAllTicketDetailsTODestination(){
-
-}
-
-
-
-
 int main()
 {
 	return EXIT_SUCCESS;
