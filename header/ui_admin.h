@@ -1,4 +1,4 @@
-#include "struct_base.h"
+#include "passenger_db.h"
 
 void verifyLogin();
 void addFlight();

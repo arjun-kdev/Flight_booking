@@ -38,3 +38,7 @@ Update
 Delete
 
 
+Notes : 20/07/2022
+
+1. for more than one passenger in a ticket , do we need to manage it in linkedlist ?
+2. 

@@ -1,7 +1,7 @@
 
 #include<stdio.h>
 #include<string.h>
-#include "header/struct_ticket_flight.h"
+#include "ticket_flight_db.h"
 #include "util.h"
 #include "enums.h"
 

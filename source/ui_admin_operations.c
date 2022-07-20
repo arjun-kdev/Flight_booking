@@ -239,25 +239,25 @@ void displayAllTicketObjectsFromUser()
 void viewAccomodationDetails()
 {
 }
-void displayAllFlightsFromSource()
+void displayAllFlightsFromSourceToDestination()
 {
 	flight *flightAddr = NULL;
-	int noOfflightObjectFromSource = 0;
-	noOfflightObjectFromSource = flight_bdb_count_from_source();
+	int noOfflightObjectFromSourceToDest = 0;
+	noOfflightObjectFromSourceToDest = flight_bdb_count_from_source_to_destination();
 	flightAddr = (flight *)malloc(10 * sizeof(flight));
 
-	flight_bdb_readall_from_source(flightAddr, &noOfflightObjectFromSource);
-	displayAllFlightObjectsFromSource(flightAddr, noOfflightObjectFromSource);
+	flight_bdb_readall_from_source_to_destination(flightAddr, &noOfflightObjectFromSourceToDest);
+	displayAllFlightObjectsFromSourceToDest(flightAddr, noOfflightObjectFromSourceToDest);
 	free(flightAddr);
 	flightAddr = NULL;
 }
-void displayAllFlightObjectsFromSource(flight *flightAddr, int flightObjectCount){
+void displayAllFlightObjectsFromSourceToDest(flight *flightAddr, int flightObjectCount){
 	for (int i = 0; i < flightObjectCount; i++)
 	{
-		displayFlightObjectFromSource(flightAddr[i], i);
+		displayFlightObjectFromSourceToDest(flightAddr[i], i);
 	}
 }
-void displayFlightObjectFromSource(flight flightObject, int Index){
+void displayFlightObjectFromSourceToDest(flight flightObject, int Index){
 printf("\n %d)\n", Index + 1);
 	printf("\tFlight ID :%d", flightObject.flightID);
 	printf("\n");
@@ -289,57 +289,6 @@ printf("\n %d)\n", Index + 1);
 
 }
 
-void displayAllFlightsToDestination()
-{
-	flight *flightAddr = NULL;
-	int noOfflightObjectToDestination = 0;
-	noOfflightObjectToDestination = flight_bdb_count_to_destination();
-	flightAddr = (flight *)malloc(10 * sizeof(flight));
-
-	flight_bdb_readall_to_destination(flightAddr, &noOfflightObjectToDestination);
-	displayAllFlightObjectsToDestination(flightAddr, noOfflightObjectToDestination);
-	free(flightAddr);
-	flightAddr = NULL;
-}
-
-
-void displayAllFlightObjectsToDestination(flight *flightAddr, int flightObjectCount){
-	for (int i = 0; i < flightObjectCount; i++)
-	{
-		displayFlightObjectToDestination(flightAddr[i], i);
-	}
-}
-void displayFlightObjectToDestination(flight flightObject, int Index){
-printf("\n %d)\n", Index + 1);
-	printf("\tFlight ID :%d", flightObject.flightID);
-	printf("\n");
-	printf("\tSource :%s", flightObject.source);
-	printf("\n");
-	printf("\tDestination :%s", flightObject.destination);
-	printf("\n");
-	printf("\tFly Date : ");
-	printf("%02d-%02d-%04d",
-		   flightObject.DOJ.day,
-		   flightObject.DOJ.month,
-		   flightObject.DOJ.year);
-	printf("\n");
-	printf("\tTotal no.of seats :%d", flightObject.number_of_seats);
-	printf("\n");
-	printf("\tAvailable Seats :%d", flightObject.seats_available);
-	printf("\n");
-	printf("\tArrival Time : ");
-	printf("%02d:%02d",
-		   flightObject.arrival_time.hour,
-		   flightObject.arrival_time.minute);
-	printf("\n");
-	printf("\tDeparture Time : ");
-	printf("%02d:%02d",
-		   flightObject.departure_time.hour,
-		   flightObject.departure_time.minute);
-	printf("\n");
-	printf("\tTicket price :%d", flightObject.ticket_price);
-
-}
 int main()
 {
 	return EXIT_SUCCESS;
