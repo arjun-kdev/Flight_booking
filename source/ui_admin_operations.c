@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "struct_base.h"
+#include "passenger_db.h"
 #include "ui_passenger.h"
 #include "ui_admin.h"
 #include "tickets.h"
 #include "flights.h"
-#include "struct_ticket_flight.h"
+#include "ticket_flight_db.h"
 
 void createFlight()
 {
@@ -239,17 +239,13 @@ void displayAllTicketObjectsFromUser()
 void viewAccomodationDetails()
 {
 }
-void displayAllFlightsFromSourceToDestination()
+void displayAllFlightsFromSourceToDestination(char source[],char dest[])
 {
-	flight *flightAddr = NULL;
-	int noOfflightObjectFromSourceToDest = 0;
-	noOfflightObjectFromSourceToDest = flight_bdb_count_from_source_to_destination();
-	flightAddr = (flight *)malloc(10 * sizeof(flight));
-
-	flight_bdb_readall_from_source_to_destination(flightAddr, &noOfflightObjectFromSourceToDest);
-	displayAllFlightObjectsFromSourceToDest(flightAddr, noOfflightObjectFromSourceToDest);
-	free(flightAddr);
-	flightAddr = NULL;
+	flight flightObj;
+	int flightFound = flight_bdb_readBySourceDest(&flightObj,source,dest);
+	if(flightFound ==1){
+		//print details
+	}
 }
 void displayAllFlightObjectsFromSourceToDest(flight *flightAddr, int flightObjectCount){
 	for (int i = 0; i < flightObjectCount; i++)
