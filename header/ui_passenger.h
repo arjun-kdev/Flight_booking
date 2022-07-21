@@ -1,4 +1,3 @@
-#pragma once
 #include "passenger_db.h"
 
 void bookTicket();
