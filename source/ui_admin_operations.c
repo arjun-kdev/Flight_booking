@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "passenger_db.h"
 #include "ui_passenger.h"
 #include "ui_admin.h"
+#include "passenger_db.h"
 #include "tickets.h"
 #include "flights.h"
 #include "ticket_flight_db.h"
+#include "admin_file_operations.c"
 
 void createFlight()
 {
@@ -211,20 +212,6 @@ void displayTicketObject(ticket ticketObject, int Index)
 	printf("\n");
 	printf("\tUser Id :%d", ticketObject.userID);
 }
-
-void viewAllTicketByPassenger()
-{
-
-	ticket *ticketAddr = NULL;
-	int noOfTicketsObjectByPassenger = 0;
-	noOfTicketsObjectByPassenger = ticket_bdb_count();
-	ticketAddr = (ticket *)malloc(10 * sizeof(ticket));
-	getIdOfloggedUser();
-	ticket_bdb_readAllTicketsFromUser(ticketAddr, &noOfTicketsObjectByPassenger);
-	displayAllTicketObjectsFromUser(ticketAddr, noOfTicketsObjectByPassenger);
-	free(ticketAddr);
-	ticketAddr = NULL;
-}
 void getIdOfloggedUser()
 {
 }
@@ -232,17 +219,13 @@ void getIdOfloggedUser()
 void ticket_bdb_readAllTicketsFromUser()
 {
 }
-
-void displayAllTicketObjectsFromUser()
-{
-}
 void viewAccomodationDetails()
 {
 }
 void displayAllFlightsFromSourceToDestination(char source[],char dest[])
 {
-	flight flightObj;
-	int flightFound = flight_bdb_readBySourceDest(&flightObj,source,dest);
+	flight flights[256] = {};
+	int flightFound = flight_bdb_readBySourceDest(flights,source,dest);
 	if(flightFound ==1){
 		//print details
 	}
@@ -287,5 +270,40 @@ printf("\n %d)\n", Index + 1);
 
 int main()
 {
+	do
+    {
+        printf("\n\tEnter Choice : \n\n\t1=>Create flight \n\t2=>Display All flights
+		 \n\t3=>Update flight\n\t4=>Show all tickets\n\t5=>Show Flights from a source to destination\n\t0=>exit : ");
+        scanf("%d", &menu);
+
+        printf("\n\n\n\n");
+        if (menu == 1)
+        {
+            createFlight();
+        }
+        else if (menu == 2)
+        {
+            ShowAllflights();
+        }
+		else if (menu == 3)
+        {
+            updateFlight();
+        }
+		else if (menu == 4)
+        {
+            viewAllTicketDetails();
+        }
+        else if (menu == 5)
+        {
+           printf("\n\n\t******Enter source and destination details *******\n\n");
+			char source[40],dest[40];
+            printf("\n\tsource :");
+            scanf("%s", source);
+            printf("\n\tdestination :");
+            scanf("%s", dest);
+            displayAllFlightsFromSourceToDestination(source,dest);
+        }
+    } while (menu == 1 || menu == 2 || menu == 3 || menu == 4 || menu == 5);
+
 	return EXIT_SUCCESS;
 }
