@@ -1,4 +1,6 @@
-#include "util.h"
+#include "../header/util.h"
+
+
 void clear_buffer()
 {
    while ((getchar()) != '\n');

@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<string.h>
-#include "ticket_flight_db.h"
+#include "../header/ticket_flight_db.h"
 #include "util.h"
 #include "enums.h"
 

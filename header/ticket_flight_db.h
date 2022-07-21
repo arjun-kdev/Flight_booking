@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include <passenger_db.h>
+#include "passenger_db.h"
 
 typedef struct tickeT_t
 {
@@ -33,7 +33,7 @@ int ticket_bdb_count();
 void ticket_bdb_readById(ticket* ticketAddr, int ticketIdAddr);
 void ticket_db_delete(int seatNO);
 
-void flight_bdb_readById(flight* flightAddr, int flightIdAddr);
+void flight_bdb_readById(flight* flightAddr, char flightIdAddr[]);
 int flight_bdb_count();
 void flight_bdb_readall(flight *flightList,int *flightCount);
 void add_Flight_intoFile(flight *flightAddr);

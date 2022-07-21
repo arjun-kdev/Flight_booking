@@ -27,6 +27,7 @@ typedef struct Time_
 
 struct passenger_
 {
+	int passengerId;
 	char passengerName[128];
 	char phoneNumber[16];
 	char gender;

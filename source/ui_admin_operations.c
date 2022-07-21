@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ui_passenger.h"
+#include "../header/ui_passenger.h"
 #include "ui_admin.h"
 #include "passenger_db.h"
 #include "tickets.h"
@@ -216,7 +216,7 @@ void getIdOfloggedUser()
 {
 }
 
-void ticket_bdb_readAllTicketsFromUser()
+void deleteFlight()
 {
 }
 void viewAccomodationDetails()
