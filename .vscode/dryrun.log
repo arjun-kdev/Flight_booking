@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/quest/VS_CODE_FLIGHT_BOOKING/Flight_booking'
+make: Leaving directory '/home/quest/VS_CODE_FLIGHT_BOOKING/Flight_booking'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../header/ui_passenger.h"
+#include "ui_passenger.h"
 #include "ui_admin.h"
 #include "passenger_db.h"
 #include "tickets.h"

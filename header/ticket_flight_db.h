@@ -9,7 +9,8 @@ typedef struct tickeT_t
 	char flightID;
 	char passengerName[5][32];
 	int passengerCount;
-	int seatNO[5];
+	//int seatNO[5];
+	int seatNO;
 }ticket;
 
 

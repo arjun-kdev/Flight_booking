@@ -1,4 +1,4 @@
-#include "../header/util.h"
+#include "util.h"
 
 
 void clear_buffer()

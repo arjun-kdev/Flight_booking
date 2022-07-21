@@ -1,4 +1,5 @@
-#include "struct_base.h"
+#pragma once
+#include "passenger_db.h"
 
 void bookTicket();
 void updateTicket();

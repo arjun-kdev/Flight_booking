@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
-#include "../header/ticket_flight_db.h"
-#include "../header/util.h"
-#include "../header/enums.h"
+#include "ticket_flight_db.h"
+#include "util.h"
+#include "enums.h"
 
 void add_Flight_intoFile(flight *flightAddr)
 {
@@ -62,7 +62,7 @@ int flight_bdb_count()
     countObjects = countChars / (int)sizeof(flight);
     return countObjects;
 }
-void flight_bdb_readById(flight *flightAddr, char flightIdAddr[])
+/*void flight_bdb_readById(flight *flightAddr, char flightIdAddr[])
 {
     int i = 0;
     flight flight;
@@ -86,7 +86,7 @@ void flight_bdb_readById(flight *flightAddr, char flightIdAddr[])
         i++;
     }
     fclose(in);
-}
+}*/
 
 int flight_bdb_readBySourceDest(flight *flightAddr, char source[], char dest[])
 {

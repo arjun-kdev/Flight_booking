@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-#include "../header/passenger_db.h"
-#include "../header/util.h"
+#include "passenger_db.h"
+#include "util.h"
 #include "enums.h"
 
 void add_passenger_intoFile(passenger *passengerAddr)
