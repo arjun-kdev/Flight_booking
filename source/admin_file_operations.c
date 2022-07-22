@@ -3,9 +3,8 @@
 #include "ticket_flight_db.h"
 #include "util.h"
 
- 
-void add_Flight_intoFile(flight *);
-void update_flight_bdb_update_intoFile(flight flightAddr, char flightId[]);
+
+
 
 
 void add_Flight_intoFile(flight *flightAddr)
@@ -30,9 +29,9 @@ void flight_bdb_readall(flight *flightList, int *flightCount)
     int I = 0;
     flight flightObj;
 
-    char fileName[45];
-    strcpy(fileName, getFilePath(FLIGHT_DB_PATH));
-
+    //char fileName[45];
+    //strcpy(fileName, getFilePath(FLIGHT_DB_PATH));
+    char fileName[] = "flight.dat";
     FILE *in = fopen(fileName, "rb");
     if (in == NULL)
     {
@@ -52,8 +51,9 @@ int flight_bdb_count()
     int countChars = 0;
     int countObjects = 0;
 
-    char fileName[45];
-    strcpy(fileName, getFilePath(FLIGHT_DB_PATH));
+    //char fileName[45];
+    //strcpy(fileName, getFilePath(FLIGHT_DB_PATH));
+    char fileName[] = "flight.dat";
 
     FILE *input = fopen(fileName, "rb");
     if (input == NULL)
@@ -67,7 +67,7 @@ int flight_bdb_count()
     countObjects = countChars / (int)sizeof(flight);
     return countObjects;
 }
-/*
+
 void flight_count_bdb(int *flightCount, char* srcAddr, char* destAddr,char* doj)
  { 
      int I=0;
@@ -97,6 +97,7 @@ void flight_count_bdb(int *flightCount, char* srcAddr, char* destAddr,char* doj)
       fclose(in);
 }
 }
+
 void flight_bdb_readall_specific_date(flight *flightList, char* srcAddr, char* destAddr, char* doj)
 {	int I=0;
     flight flightObj;
@@ -121,6 +122,7 @@ void flight_bdb_readall_specific_date(flight *flightList, char* srcAddr, char* d
     fclose(in);
 }
 }
+
 void flight_bdb_readall12(flight *flt1,int *count1, char *flightid)
 {
  int I=0;
@@ -148,19 +150,18 @@ void flight_bdb_readall12(flight *flt1,int *count1, char *flightid)
 }
 }
 
-/*
 
 
 
 
-/*void flight_bdb_readById(flight *flightAddr, char flightIdAddr[])
+void flight_bdb_readById(flight *flightAddr, char flightIdAddr[])
 {
     int i = 0;
     flight flight;
 
-    char fileName[45];
-    strcpy(fileName, getFilePath(FLIGHT_DB_PATH));
-
+    //char fileName[45];
+    //strcpy(fileName, getFilePath(FLIGHT_DB_PATH));
+    char fileName[] = "flight.dat";
     FILE *in = fopen(fileName, "rb");
     if (in == NULL)
     {
@@ -177,7 +178,7 @@ void flight_bdb_readall12(flight *flt1,int *count1, char *flightid)
         i++;
     }
     fclose(in);
-}*/
+}
 
 int flight_bdb_readBySourceDest(flight *flightAddr, char source[], char dest[])
 {
@@ -185,8 +186,10 @@ int flight_bdb_readBySourceDest(flight *flightAddr, char source[], char dest[])
     flight flightObj;
     int flightFound = 0;
 
-    char fileName[45];
-    strcpy(fileName, getFilePath(FLIGHT_DB_PATH));
+    //char fileName[45];
+   // strcpy(fileName, getFilePath(FLIGHT_DB_PATH));
+
+   char fileName[] = "flight.dat";
 
     FILE *in = fopen(fileName, "rb");
     if (in == NULL)
@@ -216,9 +219,9 @@ void update_flight_bdb_update_intoFile(flight flightAddr, char flightId[])
 	
     int i=0;
     flight flight;
-    char fileName[45];
-    strcpy(fileName,getFilePath(FLIGHT_DB_PATH));
-
+    //char fileName[45];
+    //strcpy(fileName,getFilePath(FLIGHT_DB_PATH));
+    char fileName[] = "flight.dat";
     FILE* in = fopen(fileName,"rb+");
 
     if(in == NULL){  

@@ -13,6 +13,8 @@ void displayAllFlightObjects(flight *, int);
 void displayFlightObject(flight, int);
 void displayAllTicketObjects(ticket *, int);
 void displayTicketObject(ticket, int);
+void update_flight_bdb_update_intoFile(flight flightAddr, char flightId[]);
+int admin_app();
 
 void createFlight()
 {
@@ -105,7 +107,7 @@ void updateFlight()
 	printf("\n");
 	printf("Enter new ticket fare : ");
 	scanf("%lf", &flightObject.ticket_price);
-	update_flight_bdb_update_intoFile(&flightObject,id);
+	update_flight_bdb_update_intoFile(flightObject,id);
 
 	// update file operation call comes here//
 }
@@ -213,7 +215,7 @@ void displayTicketObject(ticket ticketObject, int Index)
 	printf("\n");
 	printf("\t No.of passengers :%d", ticketObject.passengerCount);
 	printf("\n");
-	printf("\tPassenger Name(s) :%s", ticketObject.passengerName[1]);
+	printf("\tPassenger Name(s) :%s", ticketObject.passengerName);
 	printf("\n");
 	// printf("\tUser Id :%d", ticketObject.userID);
 }
@@ -275,7 +277,7 @@ void displayFlightObjectFromSourceToDest(flight flightObject, int Index)
 	printf("\tTicket price :%lf", flightObject.ticket_price);
 }
 
-int main()
+int admin_app()
 {
 	int menu;
 	do

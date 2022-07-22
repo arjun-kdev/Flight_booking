@@ -48,6 +48,28 @@ void ticket_bdb_readall(ticket *ticketList,int *ticketCount)
     fclose(in);
 }
 
+int ticket_bdb_count()
+{
+    int countChars = 0;
+    int countObjects = 0;
+
+    //char fileName[45];
+    //strcpy(fileName, getFilePath(FLIGHT_DB_PATH));
+    char fileName[] = "ticket.dat";
+
+    FILE *input = fopen(fileName, "rb");
+    if (input == NULL)
+    {
+        printf("Does not exist ...!\n");
+        return -1;
+    }
+    fseek(input, 0, SEEK_END);
+    countChars = ftell(input);
+    fclose(input);
+    countObjects = countChars / (int)sizeof(ticket);
+    return countObjects;
+}
+
 
  
  
