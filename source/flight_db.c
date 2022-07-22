@@ -1,153 +1,155 @@
-#include <stdio.h>
-#include <string.h>
+#include<stdio.h>
+#include<string.h>
 #include "ticket_flight_db.h"
-#include "util.h"
+//#include "util.h"
 //#include "enums.h"
 
-void flight_count_bdb(int *flightCount, char *srcAddr, char *destAddr, char *doj)
-{
-    int I = 0;
-    flight flightObj;
-    char db_journey_date[16];
 
-    // char fileName[45];
-    // strcpy(fileName,getFilePath(FLIGHT_DB_PATH));
-    char fileName[] = "flight.dat";
 
-    FILE *in = fopen(fileName, "rb");
-    if (in == NULL)
-    {
-        printf("FILE ERROR.\n");
+void flight_count_bdb(int *flightCount, char* srcAddr, char* destAddr,char* doj)
+ { 
+     int I=0;
+     flight flightObj;
+     char db_journey_date[16];
+    
+    
+   // char fileName[45];
+   // strcpy(fileName,getFilePath(FLIGHT_DB_PATH));
+   char fileName[] = "flight.dat";
+
+    FILE* in = fopen(fileName,"rb");
+    if(in == NULL){
+      //  printf("FILE ERROR.\n");
         return;
     }
-
-    while (fread(&flightObj, 1, sizeof(flight), in))
-    {
-        // flightList[I] = flightObj;
-        sscanf(db_journey_date, "%02d-%02d-%04d", &flightObj.DOJ.day, &flightObj.DOJ.month, &flightObj.DOJ.year);
-        if (!(strcmp(flightObj.source, srcAddr)) && !(strcmp(flightObj.destination, destAddr)) && !(strcmp(db_journey_date, doj)))
-        {
-            I++;
-        }
-
-        *flightCount = I;
-        fclose(in);
-    }
+    
+    while(fread(&flightObj,1,sizeof(flight),in)){
+      // flightList[I] = flightObj;
+      sscanf(db_journey_date, "%02d-%02d-%04d",&flightObj.DOJ.day,&flightObj.DOJ.month,&flightObj.DOJ.year);
+      if( !(strcmp(flightObj.source,srcAddr))  &&    !(strcmp(flightObj.destination, destAddr))  &&   !(strcmp(db_journey_date, doj)))
+      {
+       I++;
+      }
+      
+      *flightCount = I;
+      fclose(in);
 }
-void flight_bdb_readall_specific_date(flight *flightList, char *srcAddr, char *destAddr, char *doj)
-{
-    int I = 0;
+}
+void flight_bdb_readall_specific_date(flight *flightList, char* srcAddr, char* destAddr, char* doj)
+{	int I=0;
     flight flightObj;
-    char db_journey_date;
-
-    // char fileName[45];
-    // strcpy(fileName,getFilePath(FLIGHT_DB_PATH));
-    char fileName[] = "flight.dat";
-
-    FILE *in = fopen(fileName, "rb");
-    if (in == NULL)
-    {
-        printf("FILE ERROR.\n");
+  char db_journey_date;
+    
+   // char fileName[45];
+   // strcpy(fileName,getFilePath(FLIGHT_DB_PATH));
+      char fileName[] = "flight.dat";
+    FILE* in = fopen(fileName,"rb");
+    if(in == NULL){
+      //  printf("FILE ERROR.\n");
         return;
     }
-    while (fread(&flightObj, 1, sizeof(flight), in))
-    {
-        sscanf(db_journey_date, "%02d-%02d-%04d", &flightObj.DOJ.day, &flightObj.DOJ.month, &flightObj.DOJ.year);
-        if (!(strcmp(flightObj.source, srcAddr)) && !(strcmp(flightObj.destination, destAddr)) && !(strcmp(db_journey_date, doj)))
-        {
-            flightList[I] = flightObj;
-            I++;
-        }
-        //*flightCount = I;
-        fclose(in);
+    while(fread(&flightObj,1,sizeof(flight),in)){
+      sscanf(&db_journey_date, "%02d-%02d-%04d",&flightObj.DOJ.day,&flightObj.DOJ.month,&flightObj.DOJ.year);
+      if( !(strcmp(flightObj.source,srcAddr))  &&    !(strcmp(flightObj.destination, destAddr))  &&   !(strcmp(&db_journey_date, doj)))
+      {
+       flightList[I] = flightObj;
+       I++;
     }
+    //*flightCount = I;
+    fclose(in);
+}
 }
 void add_Flight_intoFile(flight *flightAddr)
 {
-    // char fileName[45];
-    //  strcpy(fileName,getFilePath(FLIGHT_DB_PATH));
-    char fileName[] = "flight.dat";
+   // char fileName[45];
+  //  strcpy(fileName,getFilePath(FLIGHT_DB_PATH));
+     char fileName[] = "flight.dat";
 
-    FILE *out = fopen(fileName, "ab");
-    if (out == NULL)
-    {
-        printf("FILE ERROR.\n");
+    FILE* out = fopen(fileName,"ab");
+    if(out == NULL){
+       // printf("FILE ERROR.\n");
         return;
     }
-
-    fwrite(flightAddr, 1, sizeof(flight), out);
+    
+    fwrite(flightAddr,1,sizeof(flight),out);
 
     fclose(out);
 }
 
-void flight_bdb_readall(flight *flightList, int *flightCount)
-{
-    int I = 0;
+
+void flight_bdb_readall(flight *flightList,int *flightCount)
+  {  int I=0;
     flight flightObj;
+    
+    //char fileName[45];
+   // strcpy(fileName,getFilePath(FLIGHT_DB_PATH));
+      char fileName[] = "flight.dat";
 
-    // char fileName[45];
-    // strcpy(fileName,getFilePath(FLIGHT_DB_PATH));
-    char fileName[] = "flight.dat";
 
-    FILE *in = fopen(fileName, "rb");
-    if (in == NULL)
-    {
-        printf("FILE ERROR.\n");
+    FILE* in = fopen(fileName,"rb");
+    if(in == NULL){
+      //  printf("FILE ERROR.\n");
         return;
     }
-    while (fread(&flightObj, 1, sizeof(flight), in))
-    {
-        flightList[I] = flightObj;
-        I++;
+    while(fread(&flightObj,1,sizeof(flight),in)){
+       flightList[I] = flightObj;
+       I++;
     }
     *flightCount = I;
     fclose(in);
 }
-int flight_bdb_count()
+
+void flight_bdb_readall12(flight *flt1,int *count1, char *flightid)
 {
-    int countChars = 0;
-    int countObjects = 0;
+ int I=0;
+    flight flightObj;
+    
+    //char fileName[45];
+   // strcpy(fileName,getFilePath(FLIGHT_DB_PATH));
+      char fileName[] = "flight.dat";
 
-    // char fileName[45];
-    //  strcpy(fileName,getFilePath(FLIGHT_DB_PATH));
-    char fileName[] = "flight.dat";
 
-    FILE *input = fopen(fileName, "rb");
-    if (input == NULL)
+    FILE* in = fopen(fileName,"rb");
+    if(in == NULL){
+        //printf("FILE ERROR.\n");
+        return;
+    }
+    while(fread(&flightObj,1,sizeof(flight),in)){
+    if (!strcmp(flightObj.flightID,flightid))
+    {
+       (*flt1)= flightObj;
+       (*count1)++;
+       break;
+    }
+    *count1 = I;
+    fclose(in);
+}
+}
+
+
+
+int flight_bdb_count()
+{ 
+	int countChars = 0;
+	int countObjects = 0;
+	
+   // char fileName[45];
+  //  strcpy(fileName,getFilePath(FLIGHT_DB_PATH));
+     char fileName[] = "flight.dat";
+
+    
+	FILE *input = fopen(fileName,"rb"); 
+    if(input == NULL)
     {
         printf("Does not exist ...!\n");
         return -1;
     }
-    fseek(input, 0, SEEK_END);
-    countChars = ftell(input);
-    fclose(input);
-    countObjects = countChars / (int)sizeof(flight);
-    return countObjects;
+	fseek(input,0,SEEK_END);
+	countChars = ftell(input);	
+	fclose(input); 	
+	countObjects = countChars / (int)sizeof(flight);
+	return countObjects;
 }
 
-void flight_bdb_readById(flight *flightAddr, int flightIdAddr)
-{
-    int i = 0;
-    flight flight;
 
-    // char fileName[45];
-    // strcpy(fileName,getFilePath(FLIGHT_DB_PATH));
-    char fileName[] = "flight.dat";
 
-    FILE *in = fopen(fileName, "rb");
-    if (in == NULL)
-    {
-        printf("FILE ERROR.\n");
-        return;
-    }
-    while (fread(&flight, 1, sizeof(flight), in))
-    {
-        if (flight.flightID == flightIdAddr)
-        {
-            (*flightAddr) = flight;
-            break;
-        }
-        i++;
-    }
-    fclose(in);
-}

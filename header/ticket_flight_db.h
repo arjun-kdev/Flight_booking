@@ -1,15 +1,12 @@
-#include<stdio.h>
-#include "passenger_db.h"
+# include "passenger_db.h"
 
 typedef struct tickeT_t
 {
-	int ticketID;
-	//int userID;
-	char passengerID[5][16];
+	char ticketID;
+	char AdharID;
 	char flightID;
-	char passengerName[5][32];
+	char passengerName[32];
 	int passengerCount;
-	//int seatNO[5];
 	int seatNO;
 }ticket;
 
@@ -30,10 +27,17 @@ typedef struct flighT_t
 
 void add_tickets_intoFile(ticket *ticketAddr);
 void ticket_bdb_readall(ticket *ticketList,int *ticketCount);
-int ticket_bdb_count();
-void ticket_bdb_readById(ticket* ticketAddr, int ticketIdAddr);
-void ticket_db_delete(int seatNO);
-
-void flight_bdb_readById(flight* flightAddr, char flightIdAddr[]);
+ void ticket_db_findticket( ticket* val, int* count, int ticketid, int seatno);
+ void ticket_db_delete_ticket(int ticketid, int seatno);
+ void flight_bdb_readall12(flight *flt1,int *count1, char *flightid);
+ 
+void flight_bdb_readById(flight* flightAddr, int flightIdAddr);
 int flight_bdb_count();
 void flight_bdb_readall(flight *flightList,int *flightCount);
+void add_Flight_intoFile(flight *flightAddr);
+void flight_count_bdb(int *flightCount, char* srcAddr, char* destAddr,char* doj);
+void flight_bdb_readall_specific_date(flight *flightList, char* srcAddr, char* destAddr, char* doj);
+
+
+
+
