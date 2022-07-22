@@ -37,4 +37,3 @@ void ticket_db_delete(int seatNO);
 void flight_bdb_readById(flight* flightAddr, char flightIdAddr[]);
 int flight_bdb_count();
 void flight_bdb_readall(flight *flightList,int *flightCount);
-void add_Flight_intoFile(flight *flightAddr);

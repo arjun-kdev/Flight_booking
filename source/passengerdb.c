@@ -2,7 +2,7 @@
 #include <string.h>
 #include "passenger_db.h"
 #include "util.h"
-#include "enums.h"
+//#include "enums.h"
 
 void add_passenger_intoFile(passenger *passengerAddr)
 {

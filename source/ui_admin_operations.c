@@ -6,7 +6,6 @@
 #include "tickets.h"
 #include "flights.h"
 //#include "ticket_flight_db.h"
-#include "admin_file_operations.c"
 
 void displayFlightObjectFromSourceToDest(flight, int);
 void ShowAllflights();

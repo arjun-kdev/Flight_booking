@@ -2,7 +2,7 @@
 #include <string.h>
 #include "ticket_flight_db.h"
 #include "util.h"
-#include "enums.h"
+//#include "enums.h"
 
 void flight_count_bdb(int *flightCount, char *srcAddr, char *destAddr, char *doj)
 {

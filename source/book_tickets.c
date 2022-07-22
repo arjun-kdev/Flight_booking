@@ -3,8 +3,13 @@
 #include "ticket_flight_db.h"
 #include <stdlib.h>
 #include <string.h>
-#include"util.h"
-#include"enums.h"
+#include "util.h"
+
+void flight_count_bdb(int *, char *, char *, char *);
+void flight_bdb_readall_specific_date(flight *, char *, char *, char *);
+void ticket_db_findticket(ticket *, char *, char *, char *);
+
+//#include "enums.h"
 typedef struct _DOJ11
 {
 	int day;
@@ -96,7 +101,7 @@ void delete_tickets()
 	printf("Enter the seatno to cancel the ticket:");
 	scanf("%d", &seat_no);
 
-	ticket_db_findticket(t1, &count, ticketid, seat_no);
+	ticket_db_findticket(t1, count, ticketid, seat_no);
 
 	char ch;
 	printf("Are you sure you want to delete!!! If yes press Y else N :");

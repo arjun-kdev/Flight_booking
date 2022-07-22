@@ -3,6 +3,9 @@
 #include "ticket_flight_db.h"
 #include "util.h"
 
+ 
+void add_Flight_intoFile(flight *);
+
 void add_Flight_intoFile(flight *flightAddr)
 {
     char fileName[45];
