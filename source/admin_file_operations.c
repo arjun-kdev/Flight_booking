@@ -5,6 +5,8 @@
 
  
 void add_Flight_intoFile(flight *);
+void update_flight_bdb_update_intoFile(flight flightAddr, char flightId[]);
+
 
 void add_Flight_intoFile(flight *flightAddr)
 {
@@ -121,4 +123,32 @@ int flight_bdb_readBySourceDest(flight *flightAddr, char source[], char dest[])
 
     fclose(in);
     return flightFound;
+}
+void update_flight_bdb_update_intoFile(flight flightAddr, char flightId[])
+{
+	
+    int i=0;
+    flight flight;
+    char fileName[45];
+    strcpy(fileName,getFilePath(FLIGHT_DB_PATH));
+
+    FILE* in = fopen(fileName,"rb+");
+
+    if(in == NULL){  
+        printf("FILE ERROR.\n");
+        return;
+    }
+	
+    while(fread(&flight,1,sizeof(flight),in)){
+        i++;
+         if(strcmp(flight.flightID, flightId) == 0){
+              break;
+        }       
+    }
+	
+    if(i > 0){
+       fseek(in,(i-1)*sizeof(flight),SEEK_SET);
+       fwrite(&flightAddr,1,sizeof(flight),in);
+    }
+    fclose(in);
 }

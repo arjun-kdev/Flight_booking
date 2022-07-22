@@ -5,7 +5,7 @@
 #include "passenger_db.h"
 #include "tickets.h"
 #include "flights.h"
-//#include "ticket_flight_db.h"
+#include "ticket_flight_db.h"
 
 void displayFlightObjectFromSourceToDest(flight, int);
 void ShowAllflights();
@@ -105,7 +105,7 @@ void updateFlight()
 	printf("\n");
 	printf("Enter new ticket fare : ");
 	scanf("%lf", &flightObject.ticket_price);
-	// add_Flight_intoFile(flightObject);
+	update_flight_bdb_update_intoFile(&flightObject,id);
 
 	// update file operation call comes here//
 }
