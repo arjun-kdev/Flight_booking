@@ -117,7 +117,12 @@ void ShowAllflights()
 	flight *flightAddr = NULL;
 	int noOfflightObject = 0;
 	noOfflightObject = flight_bdb_count();
-	flightAddr = (flight *)malloc(10 * sizeof(flight));
+	 if(noOfflightObject  == -1)
+    {
+        printf("\n\tNo flights available..!!\n");
+        return ;
+    }
+	flightAddr = (flight *)malloc(noOfflightObject * sizeof(flight));
 
 	flight_bdb_readall(flightAddr, &noOfflightObject);
 	displayAllFlightObjects(flightAddr, noOfflightObject);
@@ -190,7 +195,12 @@ void viewAllTicketDetails()
 	ticket *ticketAddr = NULL;
 	int noOfTicketsObject = 0;
 	noOfTicketsObject = ticket_bdb_count();
-	ticketAddr = (ticket *)malloc(10 * sizeof(ticket));
+	 if(noOfTicketsObject  == -1)
+    {
+        printf("\n\tNo tickets booked\n");
+        return ;
+    }
+	ticketAddr = (ticket *)malloc(noOfTicketsObject * sizeof(ticket));
 
 	ticket_bdb_readall(ticketAddr, &noOfTicketsObject);
 	displayAllTicketObjects(ticketAddr, noOfTicketsObject);
