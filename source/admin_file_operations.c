@@ -151,11 +151,12 @@ void flight_bdb_readall12(flight *flt1, int *count1, char *flightid)
     }
 }
 
-void flight_bdb_readById(flight *flightAddr, char flightIdAddr[])
+int flight_bdb_readById(flight *flightAddr, char flightIdAddr[])
 {
     int i = 0;
     flight flight;
 
+    int isRecordFound  = 0;
     // char fileName[45];
     // strcpy(fileName, getFilePath(FLIGHT_DB_PATH));
     char fileName[] = "flight.dat";
@@ -163,18 +164,20 @@ void flight_bdb_readById(flight *flightAddr, char flightIdAddr[])
     if (in == NULL)
     {
         printf("FILE ERROR.\n");
-        return;
+        return 0;
     }
     while (fread(&flight, 1, sizeof(flight), in))
     {
         if (strcmp(flight.flightID, flightIdAddr) == 0)
         {
             (*flightAddr) = flight;
+             isRecordFound = 1;
             break;
         }
         i++;
     }
     fclose(in);
+    return isRecordFound;
 }
 
 int flight_bdb_readBySourceDest(flight *flightAddr, char source[], char dest[])
@@ -230,8 +233,6 @@ void update_flight_bdb_update_intoFile(flight flightAddr, char flightId[])
     while (fread(&flight, 1, sizeof(flight), in))
     {
         i++;
-        printf("%s", flight.flightID);
-        printf("%s", flightId);
         if (strcmp(flight.flightID, flightId) == 0)
         {
             break;
@@ -244,4 +245,46 @@ void update_flight_bdb_update_intoFile(flight flightAddr, char flightId[])
         fwrite(&flightAddr, 1, sizeof(flight), in);
     }
     fclose(in);
+}
+
+void flight_bdb_delete(flight flightAddr)
+{
+    int i = 0;
+    flight flight1;
+
+    // char fileName[45];
+    // strcpy(fileName,getFilePath(LOAN_DB_PATH));
+    char fileName[] = "flight.dat";
+    char tempFileName[] = "flightTemp_db.dat";
+
+    FILE *in = fopen(fileName, "rb");
+    FILE *out = fopen(tempFileName, "wb");
+
+    if (in == NULL)
+    {
+        printf("(in)FILE ERROR.\n");
+        return;
+    }
+
+    if (out == NULL)
+    {
+        printf("(out)FILE ERROR.\n");
+        return;
+    }
+
+    while (fread(&flight1, 1, sizeof(flight), in))
+    {
+        i++;
+        if ((strcmp(flight1.flightID, flightAddr.flightID) == 0))
+        {
+            fwrite(&flight1, 1, sizeof(flight), out);
+        }
+    }
+
+    fclose(out);
+    fclose(in);
+
+    remove(fileName);
+
+    rename(tempFileName, fileName);
 }

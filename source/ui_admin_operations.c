@@ -45,14 +45,14 @@ void createFlight()
 	char flightDepartureTime[20];
 	printf("Enter time of departure in HH:MM format : ");
 	scanf("%s", flightDepartureTime);
-	sscanf(dateOfJourney, "%02d:%02d",
+	sscanf(flightDepartureTime, "%02d:%02d",
 		   &flightObject.departure_time.hour,
 		   &flightObject.departure_time.minute);
 	printf("\n");
 	char flightArrivalTime[20];
 	printf("Enter time of arrival in HH:MM format : ");
 	scanf("%s", flightArrivalTime);
-	sscanf(dateOfJourney, "%02d:%02d",
+	sscanf(flightArrivalTime, "%02d:%02d",
 		   &flightObject.arrival_time.hour,
 		   &flightObject.arrival_time.minute);
 	printf("\n");
@@ -70,7 +70,14 @@ void updateFlight()
 	printf("Enter flight id to update:");
 	scanf("%s", id);
 
-	flight_bdb_readById(&flightObject, id);
+	int found = flight_bdb_readById(&flightObject, id);
+
+	if (found != 1)
+	{
+		printf("flight not found..");
+		return;
+	}
+
 	printf("Enter new source : ");
 	scanf("%s", flightObject.source);
 	printf("\n");
@@ -94,20 +101,20 @@ void updateFlight()
 	char flightDepartureTime[20];
 	printf("Enter updated time of departure in HH:MM format : ");
 	scanf("%s", flightDepartureTime);
-	sscanf(dateOfJourney, "%02d:%02d",
+	sscanf(flightDepartureTime, "%02d:%02d",
 		   &flightObject.departure_time.hour,
 		   &flightObject.departure_time.minute);
 	printf("\n");
 	char flightArrivalTime[20];
 	printf("Enter updated time of arrival in HH:MM format : ");
 	scanf("%s", flightArrivalTime);
-	sscanf(dateOfJourney, "%02d:%02d",
+	sscanf(flightArrivalTime, "%02d:%02d",
 		   &flightObject.arrival_time.hour,
 		   &flightObject.arrival_time.minute);
 	printf("\n");
 	printf("Enter new ticket fare : ");
 	scanf("%lf", &flightObject.ticket_price);
-	update_flight_bdb_update_intoFile(flightObject,id);
+	update_flight_bdb_update_intoFile(flightObject, id);
 
 	// update file operation call comes here//
 }
@@ -117,11 +124,11 @@ void ShowAllflights()
 	flight *flightAddr = NULL;
 	int noOfflightObject = 0;
 	noOfflightObject = flight_bdb_count();
-	 if(noOfflightObject  == -1)
-    {
-        printf("\n\tNo flights available..!!\n");
-        return ;
-    }
+	if (noOfflightObject == -1)
+	{
+		printf("\n\tNo flights available..!!\n");
+		return;
+	}
 	flightAddr = (flight *)malloc(noOfflightObject * sizeof(flight));
 
 	flight_bdb_readall(flightAddr, &noOfflightObject);
@@ -155,17 +162,17 @@ void displayFlightObject(flight flightObject, int Index)
 	printf("\n");
 	printf("\tAvailable Seats :%d", flightObject.seats_available);
 	printf("\n");
-	printf("\tArrival Time : ");
-	printf("%02d:%02d",
-		   flightObject.arrival_time.hour,
-		   flightObject.arrival_time.minute);
-	printf("\n");
 	printf("\tDeparture Time : ");
 	printf("%02d:%02d",
 		   flightObject.departure_time.hour,
 		   flightObject.departure_time.minute);
 	printf("\n");
-	printf("\tTicket price :%f", flightObject.ticket_price);
+	printf("\tArrival Time : ");
+	printf("%02d:%02d",
+		   flightObject.arrival_time.hour,
+		   flightObject.arrival_time.minute);
+	printf("\n");
+	printf("\tTicket price :%0.2f", flightObject.ticket_price);
 }
 
 void approveTicket()
@@ -195,11 +202,11 @@ void viewAllTicketDetails()
 	ticket *ticketAddr = NULL;
 	int noOfTicketsObject = 0;
 	noOfTicketsObject = ticket_bdb_count();
-	 if(noOfTicketsObject  == -1)
-    {
-        printf("\n\tNo tickets booked\n");
-        return ;
-    }
+	if (noOfTicketsObject == -1)
+	{
+		printf("\n\tNo tickets booked\n");
+		return;
+	}
 	ticketAddr = (ticket *)malloc(noOfTicketsObject * sizeof(ticket));
 
 	ticket_bdb_readall(ticketAddr, &noOfTicketsObject);
@@ -235,6 +242,31 @@ void getIdOfloggedUser()
 
 void deleteFlight()
 {
+	flight flightObj;
+	int isRecordFound = 0;
+	char id[32];
+	printf("Enter flight id to update:");
+	scanf("%s", id);
+
+	int found = flight_bdb_readById(&flightObj, id);
+
+	if (found != 1)
+	{
+		printf("flight not found..");
+		return;
+	}
+	else if (isRecordFound == 1)
+	{
+		char ch;
+		printf("\n\tDo you want to delete flight (y/n): ");
+		scanf(" %c", &ch);
+		if ('y' == ch || 'Y' == ch)
+		{
+			flight_bdb_delete(flightObj);
+			printf("\n\tflight deleted !!(\n");
+			// print_line();
+		}
+	}
 }
 void viewAccomodationDetails()
 {
@@ -284,7 +316,7 @@ void displayFlightObjectFromSourceToDest(flight flightObject, int Index)
 		   flightObject.departure_time.hour,
 		   flightObject.departure_time.minute);
 	printf("\n");
-	printf("\tTicket price :%lf", flightObject.ticket_price);
+	printf("\tTicket price :%0.2f", flightObject.ticket_price);
 }
 
 int admin_app()
