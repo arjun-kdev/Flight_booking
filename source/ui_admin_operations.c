@@ -67,7 +67,7 @@ void updateFlight()
 
 	flight flightObject = {};
 	char id[32];
-	printf("Enter flight id to update:");
+	printf("Enter flight id to update:\n");
 	scanf("%s", id);
 
 	int found = flight_bdb_readById(&flightObject, id);
@@ -245,7 +245,7 @@ void deleteFlight()
 	flight flightObj;
 	int isRecordFound = 0;
 	char id[32];
-	printf("Enter flight id to update:");
+	printf("Enter flight id to delete:");
 	scanf("%s", id);
 
 	int found = flight_bdb_readById(&flightObj, id);
@@ -255,18 +255,16 @@ void deleteFlight()
 		printf("flight not found..");
 		return;
 	}
-	else if (isRecordFound == 1)
-	{
 		char ch;
 		printf("\n\tDo you want to delete flight (y/n): ");
 		scanf(" %c", &ch);
 		if ('y' == ch || 'Y' == ch)
 		{
 			flight_bdb_delete(flightObj);
-			printf("\n\tflight deleted !!(\n");
+			printf("\n\tflight deleted !!\n");
 			// print_line();
 		}
-	}
+
 }
 void viewAccomodationDetails()
 {
@@ -325,7 +323,7 @@ int admin_app()
 	do
 	{
 		printf("\n\tEnter Choice : \n\n\t1=>Create flight \n\t2=>Display All flights");
-		printf("\n\t3=>Update flight\n\t4=>Show all tickets\n\t5=>Show Flights from a source to destination\n\t0=>exit : ");
+		printf("\n\t3=>Update flight\n\t4=>Delete flight\n\t5=>Show all tickets\n\t6=>Show Flights from a source to destination\n\t0=>exit : ");
 		scanf("%d", &menu);
 
 		printf("\n\n\n\n");
@@ -343,9 +341,13 @@ int admin_app()
 		}
 		else if (menu == 4)
 		{
-			viewAllTicketDetails();
+			deleteFlight();
 		}
 		else if (menu == 5)
+		{
+			viewAllTicketDetails();
+		}
+		else if (menu == 6)
 		{
 			printf("\n\n\t******Enter source and destination details *******\n\n");
 			char source[40], dest[40];
@@ -355,7 +357,7 @@ int admin_app()
 			scanf("%s", dest);
 			displayAllFlightsFromSourceToDestination(source, dest);
 		}
-	} while (menu == 1 || menu == 2 || menu == 3 || menu == 4 || menu == 5);
+	} while (menu == 1 || menu == 2 || menu == 3 || menu == 4 || menu == 5|| menu == 6);
 
 	return EXIT_SUCCESS;
 }
