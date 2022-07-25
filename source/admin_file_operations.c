@@ -247,7 +247,7 @@ void update_flight_bdb_update_intoFile(flight flightAddr, char flightId[])
     fclose(in);
 }
 
-void flight_bdb_delete(flight flightAddr)
+void flight_bdb_delete(char *id)
 {
     int i = 0;
     flight flight1;
@@ -275,7 +275,7 @@ void flight_bdb_delete(flight flightAddr)
     while (fread(&flight1, 1, sizeof(flight), in))
     {
         i++;
-        if ((strcmp(flight1.flightID, flightAddr.flightID) == 0))
+        if (strcmp(flight1.flightID, id))
         {
             fwrite(&flight1, 1, sizeof(flight), out);
         }

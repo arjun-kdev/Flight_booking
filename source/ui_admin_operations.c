@@ -260,7 +260,7 @@ void deleteFlight()
 		scanf(" %c", &ch);
 		if ('y' == ch || 'Y' == ch)
 		{
-			flight_bdb_delete(flightObj);
+			flight_bdb_delete(id);
 			printf("\n\tflight deleted !!\n");
 			// print_line();
 		}

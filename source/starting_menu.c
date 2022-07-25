@@ -133,6 +133,8 @@ void book_ticket()
 	{
 		printf("No flights avaliable");
 	}
+	free(ft);
+	ft = NULL;
 }
 
 void delete_tickets()
