@@ -1,6 +1,6 @@
 enum flight_status
 {
-    CANCELLED1 = 0,BOARDING
+    AVAILABLE = 0,CANCEL
 };
 typedef enum  flight_status flight_status;
 

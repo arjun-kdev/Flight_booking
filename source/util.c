@@ -41,7 +41,7 @@ char *getFlightStatus(int iStatus)
    }
    else if (iStatus == 1)
    {
-      return "Boarding";
+      return "Available";
    }
    else
    {
