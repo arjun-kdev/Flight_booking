@@ -17,7 +17,7 @@ typedef struct flighT_t
 	char source[64];
 	char destination[64];
 	DOJ_t DOJ;
-	int number_of_seats[64];
+	int number_of_seats[256];
 	int total_seats;
 	int seats_available;
 	Time departure_time;
