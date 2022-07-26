@@ -15,6 +15,8 @@ void displayAllTicketObjects(ticket *, int);
 void displayTicketObject(ticket, int);
 void update_flight_bdb_update_intoFile(flight flightAddr, char flightId[]);
 int admin_app();
+void view_seats_in_flight();
+void displayAllFlightObjectsFromSourceToDest(flight *flightAddr, int flightObjectCount);
 
 void createFlight()
 {
@@ -22,6 +24,7 @@ void createFlight()
 	flight flightObject = {};
 	printf("Enter flight ID : ");
 	scanf("%s", flightObject.flightID);
+	printf("\n");
 	printf("Enter source : ");
 	scanf("%s", flightObject.source);
 	printf("\n");
@@ -37,11 +40,11 @@ void createFlight()
 		   &flightObject.DOJ.year);
 	printf("\n");
 	printf("Enter total no.of seats : ");
-	scanf("%d", &flightObject.number_of_seats);
+	scanf("%d", &flightObject.total_seats);
 	printf("\n");
-	printf("Enter available seats : ");
-	scanf("%d", &flightObject.seats_available);
-	printf("\n");
+	//printf("Enter available seats : ");
+	//scanf("%d", &flightObject.seats_available);
+	//printf("\n");
 	char flightDepartureTime[20];
 	printf("Enter time of departure in HH:MM format : ");
 	scanf("%s", flightDepartureTime);
@@ -58,6 +61,18 @@ void createFlight()
 	printf("\n");
 	printf("Enter ticket fare : ");
 	scanf("%lf", &flightObject.ticket_price);
+	memset(flightObject.number_of_seats, 0, 256);
+	//memset(ZEROARRAY, 0, 1024)
+	
+	for(int i = 0; i<flightObject.total_seats; i++)
+	{
+	  flightObject.number_of_seats[i] = i+1;
+	}
+	flightObject.seats_available = flightObject.total_seats;
+	printf("\n");
+	printf("Status (Availale / Cancel) : ");
+	scanf("%s",flightObject.status);
+	
 	add_Flight_intoFile(&flightObject);
 
 	// create file operation call comes here//
@@ -93,11 +108,11 @@ void updateFlight()
 		   &flightObject.DOJ.year);
 	printf("\n");
 	printf("Enter updated total no.of seats : ");
-	scanf("%d", &flightObject.number_of_seats);
+	scanf("%d", &flightObject.total_seats);
 	printf("\n");
-	printf("Enter new available seats : ");
-	scanf("%d", &flightObject.seats_available);
-	printf("\n");
+	//printf("Enter new available seats : ");
+	//scanf("%d", &flightObject.seats_available);
+	//printf("\n");
 	char flightDepartureTime[20];
 	printf("Enter updated time of departure in HH:MM format : ");
 	scanf("%s", flightDepartureTime);
@@ -114,10 +129,58 @@ void updateFlight()
 	printf("\n");
 	printf("Enter new ticket fare : ");
 	scanf("%lf", &flightObject.ticket_price);
+	memset(flightObject.number_of_seats, 0, 256);
+	//memset(ZEROARRAY, 0, 1024)
+	
+	for(int i = 0; i<flightObject.total_seats; i++)
+	{
+	  flightObject.number_of_seats[i] = i+1;
+	}
+	flightObject.seats_available = flightObject.total_seats;
+	printf("\n");
+	printf("New Status (Availale / Cancel) : ");
+	scanf("%s",flightObject.status);
+	
 	update_flight_bdb_update_intoFile(flightObject, id);
 
 	// update file operation call comes here//
 }
+void view_seats_in_flight()
+{
+	flight ft;
+	char flightID[16];
+	
+	printf("\nEnter Flight id to see seating : ");
+	scanf("%s",flightID);
+	
+	//flight_bdb_readByServiceId(&ft,flightID,&count);
+	int found = flight_bdb_readById(&ft, flightID);
+	
+	if(found)
+	{
+		for( int i = 0; i < ft.total_seats; i++)
+		{
+			if(i % 4)
+			{
+				printf("%4d ",ft.number_of_seats[i]);
+			}
+			else
+			{
+				printf("\n%4d ",ft.number_of_seats[i]);
+			}
+		
+		}
+	
+	}
+	else
+	{
+		printf("\n Flight is not found....\n");
+	}
+
+}
+
+
+
 void ShowAllflights()
 {
 
@@ -145,7 +208,7 @@ void displayAllFlightObjects(flight *flightAddr, int objectCount)
 }
 void displayFlightObject(flight flightObject, int Index)
 {
-	printf("\n %d)\n", Index + 1);
+	printf("\n\t %d)\n", Index + 1);
 	printf("\tFlight ID :%s", flightObject.flightID);
 	printf("\n");
 	printf("\tSource :%s", flightObject.source);
@@ -158,7 +221,7 @@ void displayFlightObject(flight flightObject, int Index)
 		   flightObject.DOJ.month,
 		   flightObject.DOJ.year);
 	printf("\n");
-	printf("\tTotal no.of seats :%d", flightObject.number_of_seats);
+	printf("\tTotal no.of seats :%d", flightObject.total_seats);
 	printf("\n");
 	printf("\tAvailable Seats :%d", flightObject.seats_available);
 	printf("\n");
@@ -173,6 +236,7 @@ void displayFlightObject(flight flightObject, int Index)
 		   flightObject.arrival_time.minute);
 	printf("\n");
 	printf("\tTicket price :%0.2f", flightObject.ticket_price);
+	printf("\n\n");
 }
 
 void approveTicket()
@@ -272,10 +336,16 @@ void viewAccomodationDetails()
 void displayAllFlightsFromSourceToDestination(char source[], char dest[])
 {
 	flight flights[256] = {};
-	int flightFound = flight_bdb_readBySourceDest(flights, source, dest);
+	 int noOfflightObject = 0;
+	int flightFound = flight_bdb_readBySourceDest(flights, source, dest,&noOfflightObject);
 	if (flightFound == 1)
 	{
+		displayAllFlightObjectsFromSourceToDest(flights,noOfflightObject);
 		// print details
+	}
+	else{
+		printf("\n\tNo flights found from %s to %s",source,dest);
+		printf("\n\n");
 	}
 }
 void displayAllFlightObjectsFromSourceToDest(flight *flightAddr, int flightObjectCount)
@@ -300,7 +370,7 @@ void displayFlightObjectFromSourceToDest(flight flightObject, int Index)
 		   flightObject.DOJ.month,
 		   flightObject.DOJ.year);
 	printf("\n");
-	printf("\tTotal no.of seats :%d", flightObject.number_of_seats);
+	printf("\tTotal no.of seats :%d", flightObject.total_seats);
 	printf("\n");
 	printf("\tAvailable Seats :%d", flightObject.seats_available);
 	printf("\n");
@@ -323,7 +393,7 @@ int admin_app()
 	do
 	{
 		printf("\n\tEnter Choice : \n\n\t1=>Create flight \n\t2=>Display All flights");
-		printf("\n\t3=>Update flight\n\t4=>Delete flight\n\t5=>Show all tickets\n\t6=>Show Flights from a source to destination\n\t0=>exit : ");
+		printf("\n\t3=>Update flight\n\t4=>Delete flight\n\t5=>Show seats\n\t6=>Show all tickets\n\t7=>Show Flights from a source to destination\n\t0=>exit : ");
 		scanf("%d", &menu);
 
 		printf("\n\n\n\n");
@@ -345,9 +415,13 @@ int admin_app()
 		}
 		else if (menu == 5)
 		{
-			viewAllTicketDetails();
+			view_seats_in_flight();
 		}
 		else if (menu == 6)
+		{
+			viewAllTicketDetails();
+		}
+		else if (menu == 7)
 		{
 			printf("\n\n\t******Enter source and destination details *******\n\n");
 			char source[40], dest[40];
@@ -357,7 +431,7 @@ int admin_app()
 			scanf("%s", dest);
 			displayAllFlightsFromSourceToDestination(source, dest);
 		}
-	} while (menu == 1 || menu == 2 || menu == 3 || menu == 4 || menu == 5|| menu == 6);
+	} while (menu == 1 || menu == 2 || menu == 3 || menu == 4 || menu == 5|| menu == 6 || menu == 7);
 
 	return EXIT_SUCCESS;
 }

@@ -180,7 +180,7 @@ int flight_bdb_readById(flight *flightAddr, char flightIdAddr[])
     return isRecordFound;
 }
 
-int flight_bdb_readBySourceDest(flight *flightAddr, char source[], char dest[])
+int flight_bdb_readBySourceDest(flight *flightAddr, char source[], char dest[],int *noOfflightObject)
 {
     int i = 0;
     flight flightObj;
@@ -203,13 +203,15 @@ int flight_bdb_readBySourceDest(flight *flightAddr, char source[], char dest[])
         {
             if (strcmp(flightObj.destination, dest) == 0)
             {
+                i++;
                 (*flightAddr) = flightObj;
                 flightFound = 1;
                 break;
             }
         }
-        i++;
+        
     }
+    *noOfflightObject = i;
 
     fclose(in);
     return flightFound;

@@ -114,7 +114,7 @@ void book_ticket()
 			printf("FLightId: %s\n", ft[i].flightID);
 			printf("source: %s\n", ft[i].source);
 			printf("Destination: %s\n", ft[i].destination);
-			printf("Number of seats: %d\n", ft[i].number_of_seats);
+			printf("Number of seats: %ls\n", ft[i].number_of_seats);
 			printf("seats available: %d\n", ft[i].seats_available);
 			printf("ticket_price: %lf\n", ft[i].ticket_price);
 			printf("Date of journey:"
@@ -509,7 +509,7 @@ void view_ticket_details()
 		printf("FLightId: %s\n", flt1.flightID);
 		printf("source: %s\n", flt1.source);
 		printf("Destination: %s\n", flt1.destination);
-		printf("Number of seats: %d\n", flt1.number_of_seats);
+		printf("Number of seats: %ls\n", flt1.number_of_seats);
 		printf("seats available: %d\n", flt1.seats_available);
 		printf("ticket_price: %lf\n", flt1.ticket_price);
 		printf("Date of journey:"

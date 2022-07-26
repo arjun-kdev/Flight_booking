@@ -17,11 +17,13 @@ typedef struct flighT_t
 	char source[64];
 	char destination[64];
 	DOJ_t DOJ;
-	int number_of_seats;
+	int number_of_seats[64];
+	int total_seats;
 	int seats_available;
 	Time departure_time;
 	Time arrival_time;
 	double ticket_price;
+	char status[16];
 }flight;
 
 
@@ -39,8 +41,8 @@ void flight_bdb_readall(flight *flightList,int *flightCount);
 void add_Flight_intoFile(flight *flightAddr);
 void flight_count_bdb(int *flightCount, char* srcAddr, char* destAddr,char* doj);
 void flight_bdb_readall_specific_date(flight *flightList, char* srcAddr, char* destAddr, char* doj);
-int flight_bdb_readBySourceDest(flight *flightAddr, char source[], char dest[]);
-void flight_bdb_delete(flight flightObj);
+int flight_bdb_readBySourceDest(flight *flightAddr, char source[], char dest[],int *noOfflightObject);
+void flight_bdb_delete(char* id);
 
 
 
