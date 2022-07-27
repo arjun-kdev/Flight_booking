@@ -191,10 +191,12 @@ void updateFlightStatus()
 	{
 		update_flight_bdb_status(flightObject, id);
 		printf("\n\tStatus updated to %s\n", flightObject.status);
-		if (strcmp(flightObject.status, "Cancelled") == 0)
+		/*if (strcmp(flightObject.status, "Cancelled") == 0)
 		{
 			ChangeAllTicketsToCancelled(id);
+			
 		}
+		*/
 	}
 	else
 	{
@@ -270,7 +272,7 @@ void ShowAllflights()
 	free(flightAddr);
 	flightAddr = NULL;
 }
-
+/*
 void ChangeAllTicketsToCancelled(char id[])
 {
 	// 1.No need to ask flight id here. This function is calling inside-
@@ -278,7 +280,30 @@ void ChangeAllTicketsToCancelled(char id[])
 	// 2.Get all tickets for flight id.
 	// 3.loop all tickets and update status to Cancelled.
 }
+*/
 
+/*void ticket_bdb_readallByFlightId(ticket *ticketList,int *ticketCount)
+  { 
+   int I=0;
+    ticket tkt;
+    
+    //char fileName[45];
+    //strcpy(fileName,getFilePath(TICKET_DB_PATH));
+    char fileName[] = "ticket.dat";
+
+    FILE* in = fopen(fileName,"rb");
+    if(in == NULL){
+      //  printf("FILE ERROR.\n");
+        return;
+    }
+    while(fread(&tkt,1,sizeof(ticket),in)){
+       ticketList[I] = tkt;
+       I++;
+    }
+    *ticketCount = I;
+    fclose(in);
+}
+*/
 /**
  * @brief Part of showAllFlights method
  *
