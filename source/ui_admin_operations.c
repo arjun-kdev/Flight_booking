@@ -6,6 +6,8 @@
 #include "tickets.h"
 #include "flights.h"
 #include "ticket_flight_db.h"
+#include "util.h"
+#include "enums.h"
 
 /**
  * @brief Method declarations.
@@ -170,7 +172,7 @@ void updateFlightStatus()
 
 	flight flightObject = {};
 	char id[32];
-	printf("Enter flight id to change status:\n");
+	printf("\n\tEnter flight id to change status:\n");
 	scanf("%s", id);
 
 	int found = flight_bdb_readById(&flightObject, id);
@@ -181,16 +183,21 @@ void updateFlightStatus()
 		return;
 	}
 	printf("\n");
-	printf("New Status (Available / Cancelled) : ");
+	printf("\n\tNew Status (Available / Cancelled) : ");
 	scanf("%s", flightObject.status);
 	int valid = 0;
 	valid = validateStatus(flightObject.status);
 	if (valid == 1)
 	{
 		update_flight_bdb_status(flightObject, id);
-		printf("Status updated to %s",flightObject.status);
+		printf("\n\tStatus updated to %s\n", flightObject.status);
+		if (strcmp(flightObject.status, "Cancelled") == 0)
+		{
+			ChangeAllTicketsToCancelled(id);
+		}
 	}
-	else {
+	else
+	{
 		printf("\nEnter valid status..!!\n\n");
 	}
 }
@@ -262,6 +269,14 @@ void ShowAllflights()
 	displayAllFlightObjects(flightAddr, noOfflightObject);
 	free(flightAddr);
 	flightAddr = NULL;
+}
+
+void ChangeAllTicketsToCancelled(char id[])
+{
+	// 1.No need to ask flight id here. This function is calling inside-
+	//  updateflightstatus method when option changing to cancelled.
+	// 2.Get all tickets for flight id.
+	// 3.loop all tickets and update status to Cancelled.
 }
 
 /**

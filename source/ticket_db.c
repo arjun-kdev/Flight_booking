@@ -48,6 +48,30 @@ void ticket_bdb_readall(ticket *ticketList,int *ticketCount)
     fclose(in);
 }
 
+
+void ticket_bdb_readallticketsinflight(ticket *ticketList,int *ticketCount)
+  { 
+   int I=0;
+    ticket tkt;
+    
+    //char fileName[45];
+    //strcpy(fileName,getFilePath(TICKET_DB_PATH));
+    char fileName[] = "ticket.dat";
+
+    FILE* in = fopen(fileName,"rb");
+    if(in == NULL){
+      //  printf("FILE ERROR.\n");
+        return;
+    }
+    while(fread(&tkt,1,sizeof(ticket),in)){
+       ticketList[I] = tkt;
+       I++;
+    }
+    *ticketCount = I;
+    fclose(in);
+}
+
+
 int ticket_bdb_count()
 {
     int countChars = 0;
